@@ -19,7 +19,7 @@ x-common-env: &common-env
   REDIS_URL: ${REDIS_URL:-redis://redis:6379}
   REDIS_RATE_LIMIT_URL: ${REDIS_URL:-redis://redis:6379}
   PLAYWRIGHT_MICROSERVICE_URL: ${PLAYWRIGHT_MICROSERVICE_URL:-http://playwright-service:3000/scrape}
-  NUQ_DATABASE_URL: postgres://postgres:meepo-postgres@nuq-postgres:54321/postgres
+  NUQ_DATABASE_URL: postgres://postgres:meepo-postgres@nuq-postgres:5432/postgres
   USE_DB_AUTHENTICATION: ${USE_DB_AUTHENTICATION}
   OPENAI_API_KEY: ${OPENAI_API_KEY}
   OPENAI_BASE_URL: ${OPENAI_BASE_URL}
@@ -70,6 +70,7 @@ services:
     depends_on:
       - redis
       - playwright-service
+      - nuq-postgres
     ports:
       # 修改：强制将宿主机端口（左侧）改为 3002，忽略环境变量 PORT 的影响
       - "3002:${INTERNAL_PORT:-3002}"
